@@ -1,7 +1,7 @@
-package br.com.escola.admin.controller;
+package br.com.escola.admin.controllers;
 
-import br.com.escola.admin.model.Aluno;
-import br.com.escola.admin.service.AlunoService;
+import br.com.escola.admin.models.Aluno;
+import br.com.escola.admin.services.AlunoService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,10 +9,15 @@ import java.util.List;
 @RestController
 public class AlunoController {
 
-    private final AlunoService service = new AlunoService(); //Singleton
+    private final AlunoService service;
+
+    public AlunoController(AlunoService service) {
+        this.service = service;
+    }
 
     @GetMapping("/alunos") //GET
     public List<Aluno> consultarAlunos() {
+        System.out.println("Controller");
         return service.consultarAlunos();
     }
 
@@ -31,7 +36,7 @@ public class AlunoController {
 
 
     @PutMapping("/alunos/{cpf}")
-    public Aluno atualizarAluno (@PathVariable String cpf, @RequestBody Aluno aluno) {
+    public Aluno atualizarAluno(@PathVariable String cpf, @RequestBody Aluno aluno) {
         //Buscando no meu banco de dados o aluno com o cpf informado
         var alunoAtualizado = service.atualizarAluno(cpf, aluno);
 

@@ -1,4 +1,4 @@
-package br.com.escola.admin.model;
+package br.com.escola.admin.models;
 
 public class Aluno {
     private String nome;
@@ -8,6 +8,7 @@ public class Aluno {
         this.nome = nome;
         this.cpf = cpf;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }

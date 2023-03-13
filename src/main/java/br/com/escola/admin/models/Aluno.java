@@ -1,12 +1,32 @@
 package br.com.escola.admin.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "TB_ALUNO")
 public class Aluno {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "nome",nullable = false)
     private String nome;
+    @Column(name = "cpf",nullable = false, length = 11)
     private String cpf;
 
     public Aluno(String nome, String cpf) {
         this.nome = nome;
         this.cpf = cpf;
+    }
+
+    public Aluno() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setNome(String nome) {

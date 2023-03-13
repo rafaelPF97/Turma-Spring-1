@@ -36,7 +36,7 @@ public class ProfessorController {
 
     @PutMapping("/{id}")
     public Professor atualizarProfessor(@PathVariable Long id, @RequestBody Professor professor){
-        var professorAtulizado = service.atualizarProfessor(id, professor);
+        var professorAtulizado = service.atualizarProfessorPorId(id, professor);
         return professorAtulizado;
     }
 

@@ -1,9 +1,8 @@
 package br.com.escola.admin;
 
-import br.com.escola.admin.repositories.AlunoRepository;
-import br.com.escola.admin.repositories.DatabaseAlunoRepository;
-import br.com.escola.admin.repositories.EmMemoriaProfessorRepository;
-import br.com.escola.admin.repositories.ProfessorRepository;
+import br.com.escola.admin.models.Diretor;
+import br.com.escola.admin.models.Professor;
+import br.com.escola.admin.repositories.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -15,14 +14,6 @@ public class AdminApplication {
         SpringApplication.run(AdminApplication.class, args);
     }
 
-    @Bean("alunoRepository")
-    public AlunoRepository alunoRepository() {
-//        return new EmMemoriaAlunoRepository();
-        return new DatabaseAlunoRepository();
-    }
-    @Bean("professorRepository")
-    public ProfessorRepository professorRepository(){
-        return new EmMemoriaProfessorRepository();
-    }
+
 }
 

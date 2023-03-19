@@ -3,14 +3,15 @@ package br.com.escola.admin.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TB_DIRETOR")
+@Table(name = "tb_diretor")
 public class Diretor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cd_id")
     private Long id;
-    @Column(name = "nome",nullable = false)
+    @Column(name = "nm_nome",nullable = false)
     private String nome;
-    @Column(name = "cpf", nullable = false, length = 11)
+    @Column(name = "nr_cpf", nullable = false, length = 11)
     private String cpf;
 
     public Diretor(String nome, String cpf) {
@@ -42,5 +43,7 @@ public class Diretor {
         this.cpf = cpf;
     }
 
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

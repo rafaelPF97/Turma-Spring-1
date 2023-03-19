@@ -3,16 +3,17 @@ package br.com.escola.admin.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="TB_PROFESSOR")
+@Table(name="tb_professor")
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cd_id")
     private Long id;
-    @Column(name = "nome",nullable = false)
+    @Column(name = "nm_nome",nullable = false)
     private String nome;
-    @Column(name = "cpf", nullable = false, length = 11)
+    @Column(name = "nr_cpf", nullable = false, length = 11)
     private String cpf;
-    @Column(name = "especialidade",nullable = false)
+    @Column(name = "ds_especialidade",nullable = false)
     private String especialidade;
 
     public Professor(String nome, String cpf, String especialidade) {
@@ -55,4 +56,5 @@ public class Professor {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
 }

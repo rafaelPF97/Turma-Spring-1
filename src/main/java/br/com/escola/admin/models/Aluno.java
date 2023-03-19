@@ -3,14 +3,15 @@ package br.com.escola.admin.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TB_ALUNO")
+@Table(name = "tb_aluno")
 public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cd_id")
     private Long id;
-    @Column(name = "nome",nullable = false)
+    @Column(name = "nm_nome",nullable = false)
     private String nome;
-    @Column(name = "cpf",nullable = false, length = 11)
+    @Column(name = "nr_cpf",nullable = false, length = 11)
     private String cpf;
 
     public Aluno(String nome, String cpf) {

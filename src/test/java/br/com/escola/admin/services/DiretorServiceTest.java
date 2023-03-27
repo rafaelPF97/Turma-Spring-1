@@ -4,7 +4,6 @@ import br.com.escola.admin.exceptions.BusinessRuleException;
 import br.com.escola.admin.exceptions.ResourceNotFoundException;
 import br.com.escola.admin.models.Diretor;
 import br.com.escola.admin.repositories.DiretorRepository;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -59,9 +58,9 @@ class DiretorServiceTest {
     @DisplayName("Deve retornar ResourceNotFoundException quando consultar id inexistente")
     void deveRetornarExceptionQuandoConsultarIdInexistente() {
         // given
-
+        long id = 1L;
         // when
-        Mockito.when(diretorRepositoryMock.findById(anyLong()))
+        Mockito.when(diretorRepositoryMock.findById(id))
                 .thenReturn(Optional.empty());
         //then
         Assertions.assertThatExceptionOfType(ResourceNotFoundException.class)
@@ -102,17 +101,17 @@ class DiretorServiceTest {
     }
 
     @Test
-    @DisplayName("Deve lançar IllegalArgumentException quando tentar criar com cpf invalido")
+    @DisplayName("Deve lançar BusinessRuleException quando tentar criar com cpf invalido")
     public void deveFalharAoCriarDiretorComMesmoCpfInvalido() {
         // given
         Diretor diretor = new Diretor("Gustavo", "12345678911");
         // when
         when(diretorRepositoryMock.save(diretor)).thenReturn(diretor);
-        doThrow(IllegalArgumentException.class).when(diretorRepositoryMock).save(diretor);
+        doThrow(BusinessRuleException.class).when(diretorRepositoryMock).save(diretor);
 
         // then
         Assertions.assertThatThrownBy(() -> diretorService.criarDiretor(diretor))
-                .isInstanceOf(IllegalArgumentException.class);
+                .isInstanceOf(BusinessRuleException.class);
         verify(diretorRepositoryMock, never()).save(diretor);
     }
 

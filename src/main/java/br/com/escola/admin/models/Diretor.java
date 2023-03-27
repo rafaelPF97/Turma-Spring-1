@@ -1,17 +1,20 @@
 package br.com.escola.admin.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tb_diretor")
 public class Diretor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cd_id")
+    @Column(name = "cd_diretor")
     private Long id;
-    @Column(name = "nm_nome",nullable = false)
+    @NotEmpty(message = "nome não pode ser vazio")
+    @Column(name = "nm_diretor")
     private String nome;
-    @Column(name = "nr_cpf", nullable = false, length = 11)
+    @NotEmpty(message = "cpf não pode ser vazio")
+    @Column(name = "nr_cpf", length = 11)
     private String cpf;
 
     public Diretor(String nome, String cpf) {
@@ -46,4 +49,5 @@ public class Diretor {
     public void setId(Long id) {
         this.id = id;
     }
+
 }

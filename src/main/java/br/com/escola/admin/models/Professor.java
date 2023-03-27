@@ -1,19 +1,23 @@
 package br.com.escola.admin.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="tb_professor")
+@Table(name = "tb_professor")
 public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cd_id")
+    @Column(name = "cd_professor")
     private Long id;
-    @Column(name = "nm_nome",nullable = false)
+    @NotEmpty(message = "nome não pode ser vazio")
+    @Column(name = "nm_professor")
     private String nome;
-    @Column(name = "nr_cpf", nullable = false, length = 11)
+    @NotEmpty(message = "cpf não pode ser vazio")
+    @Column(name = "nr_cpf", length = 11)
     private String cpf;
-    @Column(name = "ds_especialidade",nullable = false)
+    @NotEmpty(message = "especialidade não pode ser vazio")
+    @Column(name = "ds_especialidade", nullable = false)
     private String especialidade;
 
     public Professor(String nome, String cpf, String especialidade) {
@@ -37,7 +41,7 @@ public class Professor {
         return id;
     }
 
-    private void setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -30,14 +30,8 @@ public class DiretorService {
 
     public Diretor criarDiretor(Diretor diretor) {
         Optional<Diretor> existeDiretorComEsseCpf = repository.findByCpf(diretor.getCpf());
-        if (diretor.getCpf() == null || diretor.getCpf().isEmpty()) {
-            throw new IllegalArgumentException("CPF não pode ser nulo");
-
-        }if (diretor.getNome() == null || diretor.getNome().isEmpty()) {
-            throw new IllegalArgumentException("Nome não pode ser nulo");
-        }
         if(isNotValid(diretor.getCpf())){
-            throw new IllegalArgumentException("CPF inválido");
+            throw new BusinessRuleException("CPF inválido");
         }
         if (existeDiretorComEsseCpf.isPresent()) {
             throw new BusinessRuleException("Já existe um diretor com esse cpf");
@@ -49,14 +43,8 @@ public class DiretorService {
     public Diretor atulizarDiretorPorId(Long id, Diretor diretor) {
         var diretorSalvo = obterDiretorPorId(id);
         Optional<Diretor> existeDiretorComEsseCpf = repository.findByCpf(diretor.getCpf());
-        if (diretor.getCpf() == null || diretor.getCpf().isEmpty()) {
-            throw new IllegalArgumentException("CPF não pode ser nulo");
-
-        }if (diretor.getNome() == null || diretor.getNome().isEmpty()) {
-            throw new IllegalArgumentException("Nome não pode ser nulo");
-        }
         if(isNotValid(diretor.getCpf())){
-            throw new IllegalArgumentException("CPF inválido");
+            throw new ResourceNotFoundException("CPF inválido");
         }
         if (existeDiretorComEsseCpf.isPresent()) {
             throw new BusinessRuleException("Já existe um diretor com esse cpf");

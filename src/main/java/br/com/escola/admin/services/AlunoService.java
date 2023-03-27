@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import static br.com.escola.admin.utils.validators.CPFValidator.isNotValid;
+
 
 @Service
 public class AlunoService {
@@ -46,6 +48,9 @@ public class AlunoService {
         // nao pode add um aluno com mesmo cpf
         //saber se existe um aluno com o cpf informado
         Optional<Aluno> existeAlunoComCpf = repository.findByCpf(aluno.getCpf());
+        if(isNotValid(aluno.getCpf())){
+            throw new BusinessRuleException("CPF inválido");
+        }
         if (existeAlunoComCpf.isPresent()) {
             var exception = new BusinessRuleException("Já existe um aluno com esse cpf");
             logger.error(exception.getMessage());
@@ -60,6 +65,9 @@ public class AlunoService {
         //TODO: Arrumar bug com teste unitario
         var alunoSalvo = consultarAlunoPorId(id);
         Optional<Aluno> existeAlunoComEsseCpf = repository.findByCpf(aluno.getCpf());
+        if(isNotValid(aluno.getCpf())){
+            throw new BusinessRuleException("CPF inválido");
+        }
         if (existeAlunoComEsseCpf.isPresent()) {
             throw new BusinessRuleException("Já existe um diretor com esse cpf");
         }
@@ -73,7 +81,6 @@ public class AlunoService {
     }
 
     public void removerAlunoPorId(Long id) {
-
         // Agt já validou se o aluno existe na base.
         Aluno aluno = consultarAlunoPorId(id);
 

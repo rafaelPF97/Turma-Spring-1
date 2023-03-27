@@ -2,6 +2,7 @@ package br.com.escola.admin.controllers;
 
 import br.com.escola.admin.models.Aluno;
 import br.com.escola.admin.services.AlunoService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class AlunoController {
         this.service = service;
     }
 
-    @GetMapping //GET
+    @GetMapping
     public List<Aluno> consultarAlunos() {
         System.out.println("Controller");
         return service.consultarAlunos();
@@ -30,6 +31,7 @@ public class AlunoController {
     }
 
     @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
     public Aluno criarAluno(@RequestBody Aluno aluno) {
         return service.criarAluno(aluno);
     }
@@ -44,6 +46,7 @@ public class AlunoController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deletarAluno(@PathVariable Long id) {
         service.removerAlunoPorId(id);
     }

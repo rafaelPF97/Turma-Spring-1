@@ -40,14 +40,8 @@ public class ProfessorService {
 
     public Professor criarProfessor(Professor professor) {
         Optional<Professor> existeProfessorComEsseCpf = repository.findByCpf(professor.getCpf());
-        if (professor.getCpf() == null || professor.getCpf().isEmpty()) {
-            throw new IllegalArgumentException("CPF não pode ser nulo");
-
-        }if (professor.getNome() == null || professor.getNome().isEmpty()) {
-            throw new IllegalArgumentException("Nome não pode ser nulo");
-        }
         if(isNotValid(professor.getCpf())){
-            throw new IllegalArgumentException("CPF inválido");
+            throw new BusinessRuleException("CPF inválido");
         }
         if (existeProfessorComEsseCpf.isPresent()) {
             var exception = new BusinessRuleException("Já existe um professor com esse cpf");
@@ -62,14 +56,8 @@ public class ProfessorService {
     public Professor atualizarProfessorPorId(Long id, Professor professor) {
         var professorSalvo = obterProfessorPorId(id);
         Optional<Professor> existeProfessorComEsseCpf = repository.findByCpf(professor.getCpf());
-        if (professor.getCpf() == null || professor.getCpf().isEmpty()) {
-            throw new IllegalArgumentException("CPF não pode ser nulo");
-
-        }if (professor.getNome() == null || professor.getNome().isEmpty()) {
-            throw new IllegalArgumentException("Nome não pode ser nulo");
-        }
         if(isNotValid(professor.getCpf())){
-            throw new IllegalArgumentException("CPF inválido");
+            throw new BusinessRuleException("CPF inválido");
         }
         if (existeProfessorComEsseCpf.isPresent()) {
             throw new BusinessRuleException("Já existe um professor com esse cpf");

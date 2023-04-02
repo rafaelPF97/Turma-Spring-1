@@ -10,10 +10,8 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_aluno")
     private Long id;
-    @NotEmpty(message = "nome não pode ser vazio")
     @Column(name = "nm_aluno", nullable = false)
     private String nome;
-    @NotEmpty(message = "cpf não pode ser vazio")
     @Column(name = "nr_cpf", nullable = false, length = 11)
     private String cpf;
 

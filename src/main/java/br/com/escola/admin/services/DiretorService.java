@@ -30,9 +30,6 @@ public class DiretorService {
 
     public Diretor criarDiretor(Diretor diretor) {
         Optional<Diretor> existeDiretorComEsseCpf = repository.findByCpf(diretor.getCpf());
-        if(isNotValid(diretor.getCpf())){
-            throw new BusinessRuleException("CPF inválido");
-        }
         if (existeDiretorComEsseCpf.isPresent()) {
             throw new BusinessRuleException("Já existe um diretor com esse cpf");
         }
@@ -43,9 +40,6 @@ public class DiretorService {
     public Diretor atulizarDiretorPorId(Long id, Diretor diretor) {
         var diretorSalvo = obterDiretorPorId(id);
         Optional<Diretor> existeDiretorComEsseCpf = repository.findByCpf(diretor.getCpf());
-        if(isNotValid(diretor.getCpf())){
-            throw new ResourceNotFoundException("CPF inválido");
-        }
         if (existeDiretorComEsseCpf.isPresent()) {
             throw new BusinessRuleException("Já existe um diretor com esse cpf");
         }

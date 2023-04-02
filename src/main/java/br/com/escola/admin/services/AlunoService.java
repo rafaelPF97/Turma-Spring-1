@@ -48,9 +48,6 @@ public class AlunoService {
         // nao pode add um aluno com mesmo cpf
         //saber se existe um aluno com o cpf informado
         Optional<Aluno> existeAlunoComCpf = repository.findByCpf(aluno.getCpf());
-        if(isNotValid(aluno.getCpf())){
-            throw new BusinessRuleException("CPF inválido");
-        }
         if (existeAlunoComCpf.isPresent()) {
             var exception = new BusinessRuleException("Já existe um aluno com esse cpf");
             logger.error(exception.getMessage());

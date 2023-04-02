@@ -59,7 +59,7 @@ public class ProfessorService {
         if(isNotValid(professor.getCpf())){
             throw new BusinessRuleException("CPF inválido");
         }
-        if (existeProfessorComEsseCpf.isPresent()) {
+        if (existeProfessorComEsseCpf.isPresent() && !existeProfessorComEsseCpf.get().equals(professor.getCpf())) {
             throw new BusinessRuleException("Já existe um professor com esse cpf");
         }
         professorSalvo.setNome(professor.getNome());

@@ -10,10 +10,8 @@ public class Diretor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cd_diretor")
     private Long id;
-    @NotEmpty(message = "nome não pode ser vazio")
     @Column(name = "nm_diretor")
     private String nome;
-    @NotEmpty(message = "cpf não pode ser vazio")
     @Column(name = "nr_cpf", length = 11)
     private String cpf;
 

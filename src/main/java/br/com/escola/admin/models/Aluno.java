@@ -1,7 +1,6 @@
 package br.com.escola.admin.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tb_aluno")

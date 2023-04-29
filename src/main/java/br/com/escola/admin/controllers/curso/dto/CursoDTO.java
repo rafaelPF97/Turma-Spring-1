@@ -10,7 +10,6 @@ public record CursoDTO(
         String descricao,
         @NotBlank
         String imgUrl,
-        @NotBlank
         Long profId
 ) {
 

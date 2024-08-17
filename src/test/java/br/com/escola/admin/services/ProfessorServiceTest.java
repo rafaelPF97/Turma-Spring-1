@@ -90,22 +90,7 @@ class ProfessorServiceTest {
         Professor professor = new Professor("Paulo", "12345678911", "Matematica");
 
         // when
-        when(professorRepositoryMock.save(professor)).thenReturn(professor);
-        doThrow(BusinessRuleException.class).when(professorRepositoryMock).save(professor);
-
-        // then
-        verify(professorRepositoryMock, never()).save(professor);
-        Assertions.assertThatThrownBy(() -> professorService.criarProfessor(professor))
-                .isInstanceOf(BusinessRuleException.class);
-    }
-
-    @Test
-    @DisplayName("Deve lançar BusinessRuleException quando tentar criar com cpf invalido")
-    public void deveFalharAoCriarProfessorComMesmoCpfInvalido() {
-        // given
-        Professor professor = new Professor("Paulo", "12345678911", "Matematica");
-        // when
-        when(professorRepositoryMock.save(professor)).thenReturn(professor);
+        when(professorRepositoryMock.findByCpf(professor.getCpf())).thenReturn(Optional.of(professor));
         doThrow(BusinessRuleException.class).when(professorRepositoryMock).save(professor);
 
         // then

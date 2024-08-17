@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static br.com.escola.admin.utils.validators.CPFValidator.isNotValid;
-
 @Service
 public class ProfessorService {
 
@@ -40,9 +38,6 @@ public class ProfessorService {
 
     public Professor criarProfessor(Professor professor) {
         Optional<Professor> existeProfessorComEsseCpf = repository.findByCpf(professor.getCpf());
-        if(isNotValid(professor.getCpf())){
-            throw new BusinessRuleException("CPF inválido");
-        }
         if (existeProfessorComEsseCpf.isPresent()) {
             var exception = new BusinessRuleException("Já existe um professor com esse cpf");
             logger.error(exception.getMessage());
@@ -56,22 +51,18 @@ public class ProfessorService {
     public Professor atualizarProfessorPorId(Long id, Professor professor) {
         var professorSalvo = obterProfessorPorId(id);
         Optional<Professor> existeProfessorComEsseCpf = repository.findByCpf(professor.getCpf());
-        if(isNotValid(professor.getCpf())){
-            throw new BusinessRuleException("CPF inválido");
-        }
-        if (existeProfessorComEsseCpf.isPresent() && !existeProfessorComEsseCpf.get().equals(professor.getCpf())) {
+        if (existeProfessorComEsseCpf.isPresent() &&
+                !existeProfessorComEsseCpf.get().getCpf().equals(professor.getCpf())
+        ) {
             throw new BusinessRuleException("Já existe um professor com esse cpf");
         }
-        professorSalvo.setNome(professor.getNome());
-        professorSalvo.setCpf(professor.getCpf());
-        professorSalvo.setEspecialidade(professor.getEspecialidade());
-        repository.save(professorSalvo);
-        return professorSalvo;
+        professorSalvo.atualizaDados(professor);
+
+        return repository.save(professorSalvo);
     }
 
     public void removerProfessorPorId(Long id) {
         Professor professor = obterProfessorPorId(id);
-
         repository.delete(professor);
     }
 

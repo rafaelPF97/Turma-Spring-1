@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
@@ -38,17 +39,16 @@ class DiretorServiceTest {
     public void deveRetornarTodosOsDiretores() {
         // given
         List<Diretor> diretores = List.of(new Diretor("Paulo", "12345678911"));
-
         // when
         Mockito.when(diretorRepositoryMock.findAll()).thenReturn(diretores);
 
         List<Diretor> diretoresRetornados = diretorService.obterDiretores();
-
         // then
-        Assertions.assertThat(diretoresRetornados).isNotNull();
+
         Assertions.assertThat(diretoresRetornados)
                 .isNotEmpty()
-                .hasSize(1);
+                .hasSize(1)
+                .isNotNull();
         Assertions.assertThat(diretoresRetornados.get(0).getNome()).isEqualTo("Paulo");
         Assertions.assertThat(diretoresRetornados.get(0).getCpf()).isEqualTo("12345678911");
     }
@@ -89,29 +89,11 @@ class DiretorServiceTest {
     public void deveFalharAoCriarDiretorComMesmoCpf() {
         // given
         Diretor diretor = new Diretor("Gustavo", "47970322000");
-
         // when
-        when(diretorRepositoryMock.save(diretor)).thenReturn(diretor);
+        when(diretorRepositoryMock.findByCpf(diretor.getCpf())).thenReturn(Optional.of(diretor));
         doThrow(BusinessRuleException.class).when(diretorRepositoryMock).save(diretor);
-
         // then
-        verify(diretorRepositoryMock, never()).save(diretor);
-        Assertions.assertThatThrownBy(() -> diretorService.criarDiretor(diretor))
-                .isInstanceOf(BusinessRuleException.class);
-    }
-
-    @Test
-    @DisplayName("Deve lançar BusinessRuleException quando tentar criar com cpf invalido")
-    public void deveFalharAoCriarDiretorComMesmoCpfInvalido() {
-        // given
-        Diretor diretor = new Diretor("Gustavo", "12345678911");
-        // when
-        when(diretorRepositoryMock.save(diretor)).thenReturn(diretor);
-        doThrow(BusinessRuleException.class).when(diretorRepositoryMock).save(diretor);
-
-        // then
-        Assertions.assertThatThrownBy(() -> diretorService.criarDiretor(diretor))
-                .isInstanceOf(BusinessRuleException.class);
+        assertThrows(BusinessRuleException.class, () -> diretorService.criarDiretor(diretor));
         verify(diretorRepositoryMock, never()).save(diretor);
     }
 
@@ -140,9 +122,9 @@ class DiretorServiceTest {
         Mockito.when(diretorRepositoryMock.findById(diretor1.getId())).thenReturn(Optional.of(diretor1));
         doThrow(BusinessRuleException.class).when(diretorRepositoryMock).findByCpf(diretor2.getCpf());
         //then
-        verify(diretorRepositoryMock, never()).save(diretor2);
-        Assertions.assertThatThrownBy(() -> this.diretorService.atulizarDiretorPorId(diretor1.getId(), diretor2))
+        Assertions.assertThatThrownBy(() -> this.diretorService.atualizarDiretorPorId(diretor1.getId(), diretor2))
                 .isInstanceOf(BusinessRuleException.class);
+        verify(diretorRepositoryMock, never()).save(diretor2);
     }
 
     @Test
@@ -154,7 +136,7 @@ class DiretorServiceTest {
         Diretor diretor2 = new Diretor("Gustavo", "47970322000");
         //when
         Mockito.when(diretorRepositoryMock.findById(diretor1.getId())).thenReturn(Optional.of(diretor1));
-        Diretor diretorRetornado = diretorService.atulizarDiretorPorId(diretor1.getId(), diretor2);
+        Diretor diretorRetornado = diretorService.atualizarDiretorPorId(diretor1.getId(), diretor2);
         //then
         verify(diretorRepositoryMock, times(1)).save(diretor1);
 

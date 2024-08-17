@@ -38,7 +38,7 @@ public class EscolaControllerAdvice {
         errors.put(title, reason);
         errors.put(status, code);
 
-        ex.getBindingResult().getAllErrors().forEach((error) ->{
+        ex.getBindingResult().getAllErrors().forEach(error ->{
             String fieldName = ((FieldError) error).getField();
             String errorMessage = error.getDefaultMessage();
 

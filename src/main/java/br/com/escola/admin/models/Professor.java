@@ -1,7 +1,11 @@
 package br.com.escola.admin.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_professor")
@@ -56,6 +60,12 @@ public class Professor {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public void atualizaDados(Professor novoProfessor) {
+        this.nome = novoProfessor.getNome();
+        this.cpf = novoProfessor.getCpf();
+        this.especialidade = novoProfessor.getEspecialidade();
     }
 
 }

@@ -1,4 +1,4 @@
-CREATE TABLE tb_aluno (
+CREATE TABLE TB_ALUNO (
                          cd_aluno INT AUTO_INCREMENT NOT NULL,
                          nm_aluno VARCHAR(255) NOT NULL,
                          nr_cpf VARCHAR(11) NOT NULL,

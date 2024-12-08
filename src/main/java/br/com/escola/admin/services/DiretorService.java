@@ -6,8 +6,6 @@ import br.com.escola.admin.models.Diretor;
 import br.com.escola.admin.repositories.DiretorRepository;
 import org.springframework.stereotype.Service;
 
-import static br.com.escola.admin.utils.validators.CPFValidator.isNotValid;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +35,7 @@ public class DiretorService {
         return diretor;
     }
 
-    public Diretor atulizarDiretorPorId(Long id, Diretor diretor) {
+    public Diretor atualizarDiretorPorId(Long id, Diretor diretor) {
         var diretorSalvo = obterDiretorPorId(id);
         Optional<Diretor> existeDiretorComEsseCpf = repository.findByCpf(diretor.getCpf());
         if (existeDiretorComEsseCpf.isPresent()) {
@@ -53,4 +51,5 @@ public class DiretorService {
         Diretor diretor = obterDiretorPorId(id);
         repository.delete(diretor);
     }
+
 }

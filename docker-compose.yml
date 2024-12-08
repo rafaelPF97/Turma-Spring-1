@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql:8.0.33
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: escola
+      MYSQL_USER: hbstudent
+      MYSQL_PASSWORD: hbstudent
+    ports:
+      - "3306:3306"

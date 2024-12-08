@@ -7,7 +7,16 @@ import br.com.escola.admin.models.CursoAluno;
 import br.com.escola.admin.services.CursoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -43,22 +52,22 @@ public class CursoController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deletarCursoPorId(@PathVariable Long id){
+    public void deletarCursoPorId(@PathVariable Long id) {
         service.removerCursoPorId(id);
     }
 
     @PostMapping("/{idCurso}/aluno/{idAluno}")
-    public void adicionaAlunoAoCurso(@PathVariable Long idCurso,@PathVariable Long idAluno){
-        service.adicionaAlunoAoCurso(idCurso,idAluno);
+    public void adicionaAlunoAoCurso(@PathVariable Long idCurso, @PathVariable Long idAluno) {
+        service.adicionaAlunoAoCurso(idCurso, idAluno);
     }
 
     @PatchMapping("/{idCurso}/aluno/{idAluno}/nota")
-    public void adicionarNotaAoAlunoCurso(@PathVariable Long idCurso, @PathVariable Long idAluno, @RequestBody @Valid CursoAlunoNotaDTO dto){
-        service.adicionaNotaAoAlunoCurso(idCurso,idAluno,dto.nota());
+    public void adicionarNotaAoAlunoCurso(@PathVariable Long idCurso, @PathVariable Long idAluno, @RequestBody @Valid CursoAlunoNotaDTO dto) {
+        service.adicionaNotaAoAlunoCurso(idCurso, idAluno, dto.nota());
     }
 
     @GetMapping("/{idCurso}/aluno/{idAluno}")
-    public CursoAluno obterCursoAluno(@PathVariable Long idCurso,@PathVariable Long idAluno){
-        return service.obterCursoAluno(idCurso,idAluno);
+    public CursoAluno obterCursoAluno(@PathVariable Long idCurso, @PathVariable Long idAluno) {
+        return service.obterCursoAluno(idCurso, idAluno);
     }
 }

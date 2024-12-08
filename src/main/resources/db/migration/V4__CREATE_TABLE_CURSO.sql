@@ -1,4 +1,4 @@
-CREATE TABLE TB_CURSO (
+CREATE TABLE tb_curso (
                          cd_curso INT AUTO_INCREMENT NOT NULL,
                          ds_descricao VARCHAR(255) NOT NULL,
                          ds_imgURL VARCHAR(255) NOT NULL,
@@ -8,5 +8,5 @@ CREATE TABLE TB_CURSO (
                              PRIMARY KEY (cd_curso),
                          constraint FK_CURSO_PROFESSOR
                              FOREIGN KEY (cd_professor)
-                                 REFERENCES TB_PROFESSOR(cd_professor)
+                                 REFERENCES tb_professor(cd_professor)
 );
